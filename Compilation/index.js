@@ -1,0 +1,1 @@
+const arrow = () => console.log('this is arrow');
