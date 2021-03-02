@@ -1,0 +1,2 @@
+# blog
+Progress, continuous progress
