@@ -22,6 +22,13 @@
 ### Parsing
 **Parsing** is taking raw code and turning it into a more abstract representation of the code.
 解析就是将源代码转换成更加抽象的代码进行表示。
+解析阶段分为两种情况。
+* 1 lexical analysis 词法分析
+* 2 syntactic analysis 语法分析
+
+#### lexical analysis
+Lexical analysis 词法分析
+
 
 ### Transformation
 **Transformation** takes this abstract representation and manipulates to do whatever the complier wants it to.
@@ -38,7 +45,7 @@
 我们先来编译第一个文件，在 package.json 中添加
 ```json
     "scripts": {
-    "build": "babel index.js --out-file compiled.js"
+        "build": "babel index.js --out-file compiled.js"
     }
 ```
 然后运行 npm run build。
