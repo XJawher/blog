@@ -2,6 +2,7 @@
 
 ## Sorting
 
+排序算法有很多，最简单的就要数冒泡了，这个就不写了很简单。
 ## Searching
 
 ## Recursion
