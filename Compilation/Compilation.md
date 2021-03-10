@@ -31,7 +31,7 @@ Lexical analysis 词法分析
 词法分析将原代码通过一个叫tokenizer的或者是词法分析器东西分解成碎片，将这些东西称作是tokens(标记)。tokens （标记物）是一组极其小的对象所组成的数组，tokens 是独立的语法碎片。tokens 可能是数字，标签，punctuation标点符号，operators操作符。
 #### syntactic analysis
 语法分析使用上面的 tokens ，重新格式化这些 tokens 进一个表示结构中，这个结构可以描述成语法的每个部分和他们之间的联系。这个就是所谓的中间部分或者抽象语法树。
-抽象语法树是一个非常底层的对象，ast 组织代码表达的一种非方式是既容易工作又可以告诉我们大量的信息。
+抽象语法树是一个非常底层的对象，ast 组织代码是一种既可以告诉我们大量的信息，又非常容易工作的代码组织方式。
 
 
 ### Transformation
@@ -67,7 +67,7 @@ Lexical analysis 词法分析
       }]
     }
 ```
-上面的这颗抽象语法树，我们在遍历的时候
+上面的这颗抽象语法树，我们在遍历的时候可以拿到如下的数据
 
 ### Code Generation
 **Code Generation** takes the transformed representation of the code and turns it into new code.
