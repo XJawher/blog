@@ -9,3 +9,8 @@
 # 数据结构
 [数据结构](./DataStructure/DataStructure.md)
 
+# Nginx
+[Nginx](./Nginx/Nginx.md)
+
+# Server
+[服务器相关](./Server/Server.md)
