@@ -13,4 +13,4 @@
 [Nginx](./Nginx/Nginx.md)
 
 # Server
-[服务器相关](./Server/Server.md)
+[免密登录](./Server/FreePassWord.md)
