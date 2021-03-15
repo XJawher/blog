@@ -14,3 +14,7 @@
 
 # Server
 [免密登录](./Server/FreePassWord.md)
+[Linux 记录](./Server/Linux.md)
+
+# wget
+[wget 使用详解](https://wangchujiang.com/linux-command/c/wget.html)
