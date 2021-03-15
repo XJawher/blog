@@ -130,3 +130,34 @@ http {
 ```
 
 目前我的需求：一个可以指定位置的 单页面前端项目那么就有一个 index.html 文件，使用 Nginx 代理后可以直接访问 80 端口。因为目前只有我一个人在操作和写代码，就暂时不考虑并发等行为，
+
+## Nginx 启动
+我的 Nginx 是位于 `/home/admin/nginx/` 下，所以在修改文件的时候就是要去这个目录下修改 conf 。修改完成后用 nginx -s reload 重启。
+
+## 403 Forbidden
+我把 conf 文件中目录位置做了修改，这时候访问出现了 403 forbidden，经过查询，出现这个的原因是有下面的三个方面
+* 缺少索引文件
+* 权限问题
+* SELinux 状态
+
+### 索引文件
+```conf
+server {
+  listen       7777;
+  server_name  localhost;
+  index  index.html;
+  root  /root/dist/index.html;
+}
+```
+当我们的索引文件 index.html 在下面的这个目录下没找到的时候，就会出现 403 的报错问题。
+### 权限问题
+通过 bash 可以查到当前的这个 dist 文件是属于 root 用户和root 组的，而我们的 Nginx 是 admin 用户和 admin 用户的，所以在这里就出现了刚看到的 403 的问题，修改的方法很简单，就是在 conf 最开始加入用户，如下
+
+```conf
+user  root;
+```
+指定完用户以后，重启 Nginx ，这时候就出现了我们的 index.html 。
+
+### SELinux 状态
+[SELinux 入门](https://linuxtoy.org/archives/selinux-introduction.html)
+这部分比较复杂，暂时属于我没有涉及到的内容，先做个记录吧。
