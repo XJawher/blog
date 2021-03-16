@@ -67,7 +67,29 @@ Lexical analysis 词法分析
       }]
     }
 ```
+add(2,subtract(4-2))
 上面的这颗抽象语法树，我们在遍历的时候可以拿到如下的数据
+1. Program 类型是函数，在 AST 的第一层。
+2. callExpression（add），编译到这里就是代表到程序主体的第一个元素。
+3. NumberLiteral 2 数字字面量，到这里就是第一个 callExpression 的参数
+4. callExpression (subtract)，到这里就是下一个程序主题的元素。
+5. NumberLiteral 4 数字字面量，这里就是 subtract 函数的第一个参数
+6. NumberLiteral 2 数字字面量，这里就是 subtract 函数的第二个参数
+
+如果我们是直接去才做这个 AST，而不是去独立的创建一个新的 AST，我们就可能在这里引进各种抽象。对于我们的抽象操作来说，我们通过 visitor（实现者） 参考每个在树上的节点就是足够了的。
+
+The reason I use the word "visiting" is because there is this pattern of how to represent operations on elements of an object structure.
+
+我之所以使用 visiting 这个词的原因这是一种模式，那就是怎么表示在一个对象结构上去操作属于这个对象的元素。
+
+ <u>**Visitors**<u>
+这里有个基础的思想是我们要去创建一个 visitor 对象，这个对象拥有一种方法，这个方法可以接受不同的节点类型。
+```js
+var visitor = {
+  NumberLiteral() {},
+  CallExpression() {},
+};
+```
 
 ### Code Generation
 **Code Generation** takes the transformed representation of the code and turns it into new code.
@@ -76,7 +98,6 @@ Lexical analysis 词法分析
 ## babel
 [**babel 安装**](https://github.com/jamiebuilds/babel-handbook/blob/master/translations/zh-Hans/user-handbook.md#toc-babel-cli)
 现在的需求是在生产环境将项目里的 `console.log()` 给删除，在开发环境中将 `console.log(xxx) 转成 console.log('xxx',xxx)`
-### babel 编译
 我们先来编译第一个文件，在 package.json 中添加
 ```json
     "scripts": {
