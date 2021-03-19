@@ -18,9 +18,9 @@
 function insert (params) {
     // 默认的第一个元素是 数组的最后一个元素。
     for (let i = 0; i < params.length; i++) {
-        for (let j = i; j > 0; j--) {
-            if (params[j] > params[j - 1]) {
-                console.log(params[i], params[j]);
+        for (let j = i; j > 0; j--) { // 这里是比较关键的地方，跳出的条件和循环的条件。
+            if (params[j] > params[j - 1]) {  // 这里是将 j 前面的所有的元素当做是一个新的数组，在这个数组中进行排序，因为排序是从 0 开始的
+                // 可以认为每次开始之前的排序是都做好的，所以只需要对比一次就可以确定位置
                 const tmp = params[j]
                 params[j] = params[j - 1]
                 params[j - 1] = tmp
