@@ -11,7 +11,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}\\Algorithm\\Sort\\Insert.js",
+            "program": "${workspaceFolder}\\Algorithm\\Sort\\index.js",
             "outFiles": [
                 "${workspaceFolder}/**/*.js"
             ]

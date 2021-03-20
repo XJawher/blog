@@ -30,4 +30,4 @@ function insert (params) {
     return params;
 }
 
-insert([19, 3, 33, 2, 31, 43, 52, 45, 64]);
+module.exports = insert;
