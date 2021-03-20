@@ -16,6 +16,7 @@
 6. 重复步骤 2~5
  */
 function insert (params) {
+    console.time('sort');
     // 默认的第一个元素是 数组的最后一个元素。
     for (let i = 0; i < params.length; i++) {
         for (let j = i; j > 0; j--) { // 这里是比较关键的地方，跳出的条件和循环的条件。
@@ -27,7 +28,8 @@ function insert (params) {
             }
         }
     }
+    console.timeEnd('sort');
     return params;
 }
 
-module.exports = insert;
+module.exports = {insert};
