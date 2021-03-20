@@ -16,6 +16,7 @@
 6. 重复步骤 2~5
  */
 function insert (params) {
+    if (!params || !params.length) return [];
     console.time('sort');
     // 默认的第一个元素是 数组的最后一个元素。
     for (let i = 0; i < params.length; i++) {
