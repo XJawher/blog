@@ -4,6 +4,7 @@
  * @date 20/03/2021
  * 快速排序有很多种算法实现， optimization 的版本有很多，这里先写一个最基础的
  */
+
 function quickBase (arr) {
     if (!arr || !arr.length) return [];
 
@@ -13,12 +14,12 @@ function quickBase (arr) {
     // 基准值的选择,基准值的选择有很多的方案,有的是直接选择的数组开头的值，有的是选择的数组最后的值，还有的是选择的随机的值。
 
     // 随机
-    // const pivot = Math.floor(Math.random() * arr.length)
+    const pivot = Math.floor(Math.random() * arr.length)
 
     // 开头
     // const pivot = 0
     // 结尾
-    const pivot = arr.length - 1
+    // const pivot = arr.length - 1
 
     // 声明左右数组，大的往 big 走，小的往 small 走
     const smallArray = [];

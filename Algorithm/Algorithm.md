@@ -108,7 +108,13 @@ function quickBase(arr) {
 
 上面的算法实现是一个很基础的版本，还有很多是社区里改进的版本。这里就不做更新了。
 
+经过我的实际测算，pivot 对算法的时间有很大的影响，当 pivot 选择是 0 的时候，是时间消耗最大的，当是 10000 个 random 以后的数组的时候，pivot === 0 的时候耗时是 pivot === arr.length 的两三倍。
+
 ## Searching
+
+### 斐波那契查找/黄金分割查找
+
+(Fibonacci search)[Fibonacci search](./Searching/fibonacci.js)
 
 ## Recursion
 
