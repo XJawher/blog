@@ -116,6 +116,10 @@ function quickBase(arr) {
 
 (Fibonacci search)[Fibonacci search](./Searching/fibonacci.js)
 
+这个算法好绕啊，光看算法的思想就要好一会。先简单写一下算法的思想
+![fibonacci](./Searching/fibonacci.png)
+fibonacci 算法和二分法以及插值查找比较相似，仅仅是改变了中间的值的选择， mid 不再是中间值或者插值得到，而是位于黄金分割点附近，也就是 mid = low + f(k-1)-1，f 代表斐波那契数列，如上图所示。
+
 ## Recursion
 
 ## Backtracking
