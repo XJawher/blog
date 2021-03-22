@@ -11,9 +11,11 @@ for (let index = 0; index < 10000; index++) {
     demoArray.push(Math.floor(Math.random() * index));
 }
 
+console.time('quickBase');
+const quickBaseArray = quickBase(demoArray)
+console.timeEnd('quickBase');
+console.log(quickBaseArray);
+
+
 const insertArray = insert(demoArray)
-// console.time('quickBase');
-// const quickBaseArray = quickBase(demoArray)
-// console.timeEnd('quickBase');
 console.log(insertArray);
-// console.log(quickBaseArray);
