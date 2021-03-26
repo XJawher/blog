@@ -89,3 +89,21 @@ function fibSearch (arr, key) {
 
 
 fibSearch([1, 2, 34, 3, 4], 3)
+
+
+function Recursion (arr) {
+    const index = arr.findIndex(item => Array.isArray(item));
+    if (index === -1) {
+        return arr
+    }
+
+    for (let j = 0; j < arr[index].length; j++) {
+        arr.push(arr[index][j]);
+    }
+
+    arr.splice(index, 1);
+    return Recursion(arr);
+}
+
+
+[1, [2, [3, [4, [5], [6, [8, [9, [0]]]], [7]]]]]
