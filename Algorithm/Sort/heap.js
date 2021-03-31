@@ -7,7 +7,16 @@
  * 3 重复 1 2 直到数组长度是 1 。
  * @param {*} params
  */
-function heap (params) {
+function heap (arr) {
+
+    // 中断递归
+    if (arr.length < 2) {
+        return arr;
+    }
+
+    const heapFactoryArray = heapFactory(arr);
+    const shift = heapFactoryArray.shift();
+    return [...heap(heapFactoryArray), shift]
 
 }
 
@@ -47,6 +56,7 @@ function heapFactory (arr) {
         let max = i;
 
         // 中断递归
+        // 这里的 i 不能比数组的长度更大
         if (i >= size) {
             return;
         }
@@ -69,6 +79,7 @@ function heapFactory (arr) {
         }
 
         // 这时候 max 就是自己，终止递归
+        // 既不满足大于左孩子又不满足大于右孩子，那么就是自己，这里必修做中断，要不然会成死循环
         if (max === i) {
             return;
         }
@@ -91,6 +102,11 @@ function heapFactory (arr) {
     for (let i = unLeafIndex; i >= 0; i--) {
         maxHeapify(i)
     }
+
+    // 注释掉的这个循环就会做一个完全二叉树出来，这个循环会处理所有的节点，包括叶子节点和根节点，上面的循环就是只处理非叶子节点
+    // for (let index = 0; index < arr.length; index++) {
+    //     maxHeapify(index)
+    // }
 
     return arr; // 这时候，就获取了一个大顶堆，如果要小顶堆的话就把上面的值变成小于
 }
