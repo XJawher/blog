@@ -3,10 +3,10 @@ package main
 import (
 	"fmt"
 
-	"tree_binary"
+	"corner"
 )
 
 func main() {
 	fmt.Println("this is test for go")
-	tree_binary.Binary()
+	corner.Corner()
 }
