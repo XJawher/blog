@@ -70,3 +70,4 @@ function reduceAll (state,action) {
 ### 使用纯函数执行 action
 
 我们的 action 和 state 要关联起来，就需要编写 reducers。通过 reducer 进行关联。
+所谓的纯函数：就是我传参数比如说是 1，他返回了 2，那么不管我传多少次参数 1 ，中间经过多长时间传参数 1 ，他的返回结果要一直保持唯一，那就是 2 。不能发生任何的变化。
