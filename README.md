@@ -33,6 +33,7 @@
 # 前端
 
 [请求下载文件时候遇到的 blob 错误](./Frontend/BlobError.md)
+[redux 的感悟](./Frontend/Redux.md)
 
 # Go
 
