@@ -19,8 +19,6 @@ func main() {
 go 基础
 [go 变量](./Cornerstone/corner-variable.md)
 
-# 变量
-
 这部分的内容大多数是来自 [go 语言指南](https://tour.go-zh.org/basics/1)，和 [使用 go 创建一个 web 服务端](https://github.com/XJawher/build-web-application-with-golang/blob/master/zh/02.2.md)
 
 ## 变量的定义
@@ -142,6 +140,87 @@ var sliceArr = []int
 ```
 
 fmt.Printf 和 fmt.Println 区别
+
+## 流程控制
+
+go 中的流程控制有分三大类：条件判断，循环控制，和无条件跳转。
+
+### if
+
+在 go 中的 if 是不带括号的，和 js 的不太一样
+
+```go
+if x > 10 {
+    fmt.Println("x is larger than 10")
+}else {
+    fmt.Println("x is smaller than 10")
+}
+
+// 在 go 里面的 if 是还可以在判断条件中允许声明一个变量，这个变量的作用域只能是在该条件逻辑块里面。其他的地方就不起作用了。
+if x := computerValue(); x > 10 {
+    fmt.Println("the computerValue x is more than 10")
+}else {
+    fmt.Println("the computerValue x is less than 10")
+}
+
+// 在作用域外面打印就会直接报错
+fmt.Println(x)
+```
+
+当多个条件的时候和 js 也是一样的，那就是直接用 if else if 这样的循环去判断。
+
+### goto
+
+goto 跳转到必须在当前函数定义的标签中
+
+```go
+func myFunc(){
+    i :=0
+
+Here:
+    println(i)
+    i++
+    goto Here
+}
+```
+
+### for
+
+go 中的 for 循环是一个很强大的循环逻辑，和 js 的 for 不一样，go 中的 for 可以通过不同的条件控制循环成为 for while 等循环。
+
+```go
+for expression1;expression2;expression3 {
+
+}
+```
+
+上面的循环中的 expression1;expression2;expression3 都是表达式，其中 expression1;expression3 是变量声明和函数调用返回之类的。expression2 是条件判断，expression1 在循环开始之前声明，expression3 是在循环结束以后调用。
+
+```go
+
+sum := 0
+for index = 0; index < 10; index++ {
+    sum = sum + 1;
+}
+```
+
+上面的代码如果变成这样的话
+
+```go
+sum :=0;
+
+for ; sum < 10; {
+    sum += sum
+}
+
+或者简化成这样的
+
+sum :=0;
+for sum < 10 {
+    sum += sum
+}
+这就是一个 while 循环了
+```
 
 ## 用 golang 起一个 server
 
