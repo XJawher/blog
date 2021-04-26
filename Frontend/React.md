@@ -1,3 +1,32 @@
+react 和 ng 有个很大的不同点，在 ng 中代码继承是一个很重要的地方，比如我们有一个公共的组件，那么这个组件会在不同的地方不同的表单里去调用，这时候我们就可以写一个基类，这个基类中会写一些这个组件的公共方法之类的。但是在 react 中，我们是直接会把这个组件写好，然后到处去复用。并不是去继承的使用它。如果是非 UI 功能的话，建议是抽成一个公共函数，然后 import 。
+
+## 生命周期
+
+### 挂载
+
+```js
+constructor();
+static getDeriveStateFromProps();
+render();
+componentDidMount();
+```
+
+### 更新
+
+```js
+static getDerivedStateFromProps();
+shouldComponentUpdate();
+render();
+getSnapshotBeforUpdate();
+componentDidUpdate();
+```
+
+### 卸载
+
+```js
+componentWillMount();
+```
+
 ## react 数据绑定原理
 
 react 数据变化后视图也会发生变化，在这个过程中发生了什么？
@@ -115,7 +144,7 @@ function batchedUpdates(fn, a) {
 
 ## setSate 原理
 
-## 对 react hook 的了解
+## react hook
 
 精简代码，逻辑层的组件封装，代码的可读性提升，封装高阶组件，打个比方 antd 中的 table 就可以封装成 useTable ，基本上我们的业务代码中的 table 这样的组件，会有基本相同的使用方法，像刚加载的时候请求数据，默认排序，分页，等等的一些业务逻辑，有了 hook 就可以封装一个基类，然后使用的地方直接去使用就可以了。或者是表单的一些校验逻辑也可以封装成 hook 然后到处去复用。
 
@@ -123,4 +152,4 @@ function batchedUpdates(fn, a) {
 hook 不怎么擅长处理异步的问题，当有大量的异步操作的时候， class 或许是一个比较好的选择。
 依赖的问题，在 hook 中依赖是一个比较大的问题，当我们的依赖发生了变化的时候，hook 就会被更新，当依赖所依赖的对象变化的时候，hook 也可能会被更新，所以这个链条是比较麻烦的，可能会出现 hook 发生了变化，但是不是当前 hook 依赖变化了，而是依赖的依赖变化了，这个链条上不容易控制。
 
-hook 的展望：react 官方在 12 月的时候提出了一个 server components 提案运行在服务端的 react 组件，
+hook 的展望：react 官方在 12 月的时候提出了一个 server components 提案运行在服务端的 react 组件。函数组件，写了以后可以在客户端使用也可以在服务端使用，当然这个功能使用的前提是 concurrent mode 使用变的稳定，

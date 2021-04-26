@@ -36,6 +36,7 @@
 [redux 的感悟](./Frontend/Redux.md)
 [前端数组内存管理 阿里云](https://developer.aliyun.com/article/765017)
 [一些 react 的知识点](./Frontend/React.md)
+[震惊！some every find findIndex 性能最好的竟然是 。。。](./Frontend/Performance.md)
 
 # Go
 
