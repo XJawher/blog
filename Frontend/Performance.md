@@ -1,5 +1,7 @@
 ## 查找的性能比较
 
+写了一下震惊体标题 啊哈哈哈
+
 ```js
 function speedSome() {
   console.time("speedSome");

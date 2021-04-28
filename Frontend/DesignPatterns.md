@@ -2,6 +2,26 @@
 设计模式是一套被反复使用的、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了重用代码、让代码更容易被他人理解、保证代码可靠性。 毫无疑问，设计模式于己于他人于系统都是多赢的，设计模式使代码编制真正工程化，设计模式是软件工程的基石，如同大厦的一块块砖石一样。
 其实很多的设计模式是在日常的搬砖过程中一直在使用的，但是就是说不上名字，今天总结一下
 
+## 观察者模式
+
+对于观察者模式，这是一种非常常见的设计模式，在 ng 中的 emit，vue 中的事件总线，MVVM 等都是这种设计模式的体现。
+我们拿 Vue 的这个来举例说明一下
+在 Vue 中当我们修改了状态的时候，视图会随之更新，这就是 Vue 的双向绑定或者响应式原理。下图是官方的一张图
+![双向数据绑定](./../Image/Vue-data-bind.jpg)
+在 Vue 中每个组件都有自己的 watcher 实例对象，它会在组件渲染的过程中把属性记录为依赖，之后当记录项的 setter 被调用的时候，会通知 watcher 重新计算，从而导致它的视图的更新。这是一个典型的观察者模式。
+
+Vue 实现双向绑定的过程中有如下的几个重要角色：
+
+- observer 监听者 在 Vue 中的 obverser 不仅仅是一个监听者，它还可以对监听到的数据进行转发，也是一个发布者。
+- watcher 观察者 obverser 把数据转发给了观察者 watcher 对象，watcher 接收到最新的对象以后就去更新视图
+- compile 编译器 MVVM 框架特有的角色，负责对每个节点元素指令扫描和解析，指令的数据初始化，订阅者创建这些也是编译器在管的。
+
+具体的流程图入下图所示
+![双向绑定流程图](./../Image/Vue%20双向绑定流程图.png)
+从上图看我们需要实现订阅者
+
+简历
+
 ## 工厂模式
 
 工厂模式是设计模式中很常见的一种，比如最近的一个活，业务大概是这样的。
@@ -50,7 +70,7 @@ class SignleMode {
   constructor() {
     this.number = 0;
   }
-  static getinstance() {
+  static getInstance() {
     if (!this.instance) {
       SignleMode.instance = new SignleMode();
     }
@@ -59,11 +79,11 @@ class SignleMode {
   }
 
   add() {
-    if (!this.number) {
-      this.number = 1;
-    } else {
-      this.number += 1;
-    }
+    this.number += 1;
   }
 }
+
+const S1 = new SignleMode.getInstance(); //第一次的时候会检测有没有实例，没有的话就生成实例
+const S2 = new SignleMode.getInstance(); // 这时候已经生成了实例，那么就直接使用这个实例，不再继续生成
+// 这时候的 S1 === S2 ，其引用的地址是完全一样的。这时候 S1.add() 不管执行多少遍， S1.number === S2.number
 ```
