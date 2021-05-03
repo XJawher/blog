@@ -12,7 +12,7 @@
 
 ## 技术栈与工具
 
-- 基础：JavaScript / ES6+ / TypeScript（了解，最近半年一直用 TS 开发） / HTML5 / CSS3 / Webpack / HTTP
+- 基础：JavaScript / ES6+ / TypeScript（了解，最近半年一直用 TS 开发） / HTML5 / CSS3 / Webpack / HTTP / 前端安全
 - 框架：**React（熟练）/ Angular（掌握）**
 - UI ：**Ant Design primeng / ECharts**
 - 后端：Node / koa / Go（了解，可以写业务）
