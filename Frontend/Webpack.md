@@ -27,3 +27,7 @@ webpack 在以上的打包过程中，会在特定的时间点广播出特定的
 
 HMR 的核心就是客户端从服务端去拉更新后的文件，准确的说就是 chunk diff，webpack-dev-server WDS 和浏览器之间维护了一个 websock。当本地资源发生了变化的时候，WDS 会向浏览器推送资源，并带上构建时候的 hash，让客户和上一次的资源进行对比，对比完成后根据差异会触发请求来获取变化的文件列表和 hash，这样客户端就可以继续向服务端发起 JSONP 请求这样就可以获取这个 chunk 的增量更新。
 [webpack hmr 原理](https://zhuanlan.zhihu.com/p/30669007)
+
+## happyPack
+
+为了利用多核 CPU 的计算能力，HTML5 提出 Web Worker 标准，允许 JavaScript 脚本创建多个线程，但是子线程完全受主线程控制，且不得操作 DOM。所以，这个新标准并没有改变 JavaScript 单线程的本质。HappyPack 就是利用了这个特性，可以加速打包的过程。
