@@ -52,6 +52,8 @@
 
 [Object.observe](https://www.html5rocks.com/zh/tutorials/es7/observe/)
 
+[装饰器](./Frontend/Decorator.md)
+
 # Go
 
 [Go 的一些折腾](./Server/Golang/Golang.md)
