@@ -144,7 +144,58 @@ function batchedUpdates(fn, a) {
 
 ## setSate 原理
 
-在 react 中，我们组件状态要发生变化，有两种情况，一种是组件有从父组件接收的 props ，这个对于组件来说是只读的 props 发生了变化，那么这个组件会发生更新，另外的一种就是组件自己的 state 发生了变化，就会导致组件的状态的更新。
+在 react 中，我们组件自己的 state 发生了变化，就会导致组件的状态的更新。
+
+在 this.setState 内部会调用 this.updater.enenqueSetState 方法
+
+```js
+Component.prototype.setState = function (partialState, callback) {
+  if (
+    !(
+      typeof partialState === "object" ||
+      typeof partialState === "function" ||
+      partialState == null
+    )
+  ) {
+    {
+      throw Error(
+        "setState(...): takes an object of state variables to update or a function which returns an object of state variables."
+      );
+    }
+  }
+
+  this.updater.enqueueSetState(this, partialState, callback, "setState");
+};
+
+// 这里的 callback 就是 this.setState({},functionCallBack)
+// 在 enqueueSetState 方法中就是我们熟悉的从创建 update 到调度 update 的流程了。
+
+function enqueueSetState(instance, payload, callback) {
+  const fiber = getInstance(instance); // 获取实例，并命名为 fiber
+  const eventTime = requestEventTime(); // 为调度做时间设置
+
+  const suspenseConfig = requestCurrentSuspenseConfig();
+
+  //获取优先级
+  const lane = requestUpdateLane(fiber, suspenseConfig);
+  // 创建 update
+  const update = createUpdate(eventTime, lane, suspenseConfig);
+
+  // 这里的 payload 就是 this.setState({...value}) 中的这个 {...value}
+  update.payload = payload;
+
+  // 如果有回调函数的话再赋值回调函数
+  if (callback !== undefined && callback !== null) {
+    update.callback = callback;
+  }
+
+  // 将 update 插入到 updateQueue
+  enqueueUpdata(fiber, update);
+
+  // 调度 update
+  scheduleUpdateOnFiber(fiber, lane, eventTime);
+}
+```
 
 ## react hook
 
