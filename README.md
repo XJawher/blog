@@ -24,7 +24,10 @@
 # Server
 
 [免密登录](./Server/FreePassWord.md)
+
 [Linux 记录](./Server/Linux.md)
+
+[缓存的价值](./Server/CacheHttp.md)
 
 # wget
 
