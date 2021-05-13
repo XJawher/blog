@@ -6,7 +6,7 @@ webpack 中很重要的两个知识点就是 loader 和 plugin 。
 **loader**：是一个函数，将函数中接收的内容进行转换并返回转换的结果。
 **plugin**：插件， webpack 会在打包的过程中广播出有很多事件，plugin 会检测到这些事件，利用这些广播事件然后做一些适合项目打包的事情，对 webpack 的能力是一种扩展。
 
-loader 在 module.rules 中配置，作为模块的解析规则，是类型是数组，数组内的每一项是一个对象，对象中包含的属性有 test 类型文件，loader，option 参数等。
+loader 在 module.rules 中配置，作为模块的解析规则，是数组类型，数组内的每一项是一个对象，对象中包含的属性有 test 类型文件，loader，option 等　参数。
 
 plugin 在 plugins 中配置，类型是数组，每一项是一个 Plugin 实例，参数都是通过构造函数传入。
 
@@ -31,3 +31,5 @@ HMR 的核心就是客户端从服务端去拉更新后的文件，准确的说�
 ## happyPack
 
 为了利用多核 CPU 的计算能力，HTML5 提出 Web Worker 标准，允许 JavaScript 脚本创建多个线程，但是子线程完全受主线程控制，且不得操作 DOM。所以，这个新标准并没有改变 JavaScript 单线程的本质。HappyPack 就是利用了这个特性，可以加速打包的过程。
+
+## 手动编写 loader

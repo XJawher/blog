@@ -83,7 +83,7 @@ Node 的事件循环是通过 libuv 实现的
 
 Node 中的宏任务的执行顺序是这样的
 
-- times 定时器 本阶段执行已经安排的 setTimeout 和 setInterval 回调
+- timers 定时器 本阶段执行已经安排的 setTimeout 和 setInterval 回调
 - pending callbacks 待定回调，执行延迟到下个循环迭代的 I/O 回调。
 - idle prepare 仅仅系统内部使用
 - poll 轮询，检索新的 I/O 事件；执行与 I/O 相关的回调例如读取文件之类的，适当的条件下，node 会阻塞在这个阶段
