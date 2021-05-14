@@ -13,3 +13,5 @@ export type Hook = {
 ```
 
 从上面的代码可以看到 hook 的状态值是被保存在组件实例对象 FiberNode 的 memoizedState 中，作为
+
+闭包
