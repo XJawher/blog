@@ -412,6 +412,94 @@ function traverse(node) {
 
 ## DP
 
+爬楼梯
+
+```js
+const climbStairs = function (n) {
+  if (n <= 0) {
+    return 0;
+  }
+  if (n <= 2) {
+    return n;
+  }
+  return climbStairs(n - 2) + climbStairs(n - 1);
+};
+
+let temp = [];
+let climbStairs = function (n) {
+  if (n <= 0) {
+    return 0;
+  }
+  if (n <= 2) {
+    return n;
+  }
+  if (temp[n]) {
+    return temp[n];
+  }
+  temp[n] = climbStairs(n - 2) + climbStairs(n - 1);
+  return temp[n];
+};
+const climbStairs = (n) => {
+  // 用一个数组保存每一次的结果
+  let arr = new Array(n);
+  for (let i = 1; i <= n; i++) {
+    if (i < 3) {
+      arr[i - 1] = i;
+    } else {
+      // 逐一递推得到结果
+      arr[i - 1] = arr[i - 2] + arr[i - 3];
+    }
+  }
+  return n <= 0 ? 0 : arr[n - 1];
+};
+```
+
+回文数和回文子串
+
+```js
+let countSubstrings = function (s) {
+  let len = s.length;
+  let res = 0;
+  for (let i = 0; i < len; i++) {
+    let str = "";
+    let revStr = "";
+    for (let j = i; j < len; j++) {
+      str += s[j];
+      revStr = s[j] + revStr;
+      if (str === revStr) res++;
+    }
+  }
+  return res;
+};
+
+//中心扩展法
+let countSubstrings = function (s) {
+  let len = s.length;
+  let res = 0;
+  for (let i = 0; i < 2 * len - 1; i++) {
+    let l = i / 2,
+      r = i / 2 + (i % 2);
+    while (l >= 0 && r < len && s.charAt(l) == s.charAt(r)) {
+      l--;
+      r++;
+      res++;
+    }
+  }
+  return res;
+};
+
+// 回文数
+let isPalindrome = function (x) {
+  let y = x;
+  let xReversed = 0;
+  while (x > 0) {
+    xReversed = (x % 10) + xReversed * 10;
+    x = Math.floor(x / 10);
+  }
+  return y == xReversed;
+};
+```
+
 ## DFS
 
 ## BFS
