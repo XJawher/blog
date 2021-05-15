@@ -20,6 +20,84 @@ Vue 实现双向绑定的过程中有如下的几个重要角色：
 ![双向绑定流程图](./../Image/Vue%20双向绑定流程图.png)
 从上图看我们需要实现订阅者
 
+```js
+//发布者
+class Pub {
+  constructor(dispatcher) {
+    this.dispatcher = dispatcher;
+    this.id = observed_ids++;
+  }
+  /**
+   * @description: 发布方法
+   * @param {type} 通知类型
+   */
+  publish(type) {
+    this.dispatcher.publish(type, this);
+  }
+}
+//订阅者
+class Subscriber {
+  constructor(dispatcher) {
+    this.dispatcher = dispatcher;
+    this.id = observer_ids++;
+  }
+  subscribe(type) {
+    this.dispatcher.subscribe(type, this);
+  }
+  doUpdate(type, arg) {
+    console.log("接受到消息" + arg);
+  }
+}
+//调度中心
+class Dispatcher {
+  constructor() {
+    this.dispatcher = {};
+  }
+  //订阅
+  subscribe(pub, subscriber) {
+    if (!this.dispatcher[pub.id]) {
+      this.dispatcher[pub.id] = [];
+    }
+    this.dispatcher[pub.id].push(subscriber);
+  }
+  //退订
+  unsubscribe(pub, subscriber) {
+    let subscribers = this.dispatcher[type];
+    if (!subscribers || !subscribers.length) return;
+    this.dispatcher[type] = subscribers.filter((item) => {
+      return item.id !== subscriber.id;
+    });
+  }
+  //发布
+  publish(type, args) {
+    let subscribers = this.dispatcher[type];
+    if (!subscribers || !subscribers.length) return;
+    subscribers.forEach((subscriber) => {
+      subscriber.doUpdate(type, args);
+    });
+  }
+}
+class Reader extends Subscriber {
+  constructor(name, dispatcher) {
+    super(dispatcher);
+    this.name = name;
+  }
+  doUpdate(type, st) {
+    //   super.update(st);
+    console.log(this.name + `阅读了--${type}--公众号的文章`);
+  }
+}
+class WeiX extends Pub {
+  constructor(name, dispatcher) {
+    super(dispatcher);
+    this.name = name;
+  }
+  publishArticle(type) {
+    this.publish(type);
+  }
+}
+```
+
 ## 工厂模式
 
 工厂模式是设计模式中很常见的一种，比如最近的一个活，业务大概是这样的。
