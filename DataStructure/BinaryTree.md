@@ -11,4 +11,12 @@
 
 二叉树的遍历有很多种方案，使用递归方案的时候，有前序遍历，中序遍历，后序遍历。
 
+```go
+type NodeTree struct {
+    value  int
+    left   *NodeTree
+    right  *NodeTree
+}
+```
+
 ### 前序遍历
