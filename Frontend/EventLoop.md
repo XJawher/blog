@@ -14,7 +14,7 @@ js 是单线程的，因为和它的用途有关系。js 设计的时候，就�
 在浏览器中，为了让 js 代码和 dom 有序的执行，会在一个宏任务执行完以后在一下个宏任务执行之前对页面进行渲染，也就是 宏任务 -> 渲染 -> 宏任务 这样的一循环。
 宏任务有
 
-```
+```js
 script 整体代码
 setTimeout
 setInterval
@@ -29,7 +29,7 @@ setImmediate（Node ）
 
 在当前的宏任务执行完后立即执行的任务，在某个宏任务执行完成以后，就会马上把这个宏任务产生的微任务全部执行掉。
 
-```
+```js
 Promise.then .... 等等的 promise 属性
 Object.observe
 MutationObserver
