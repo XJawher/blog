@@ -5,6 +5,10 @@
 [计算机基础](./Basics/Basics.md)
 计算机基础 这里会包含一些计算机的基础知识
 
+# 存储
+
+[存储基础 Storage](./Storage/Storage.md)
+
 # 网络协议
 
 [H2 网络协议](./Protocol/Protocol_H2.md)
@@ -72,6 +76,12 @@
 [非常重要的闭包](./Frontend/Closure.md)
 
 [浅拷贝和深拷贝](./Frontend/Copy.md)
+
+[性能优化](./Frontend/PerformanceOptimization.md)
+
+# NodeJS
+
+[NodeJS](./Server/NodeJS/Node.md)
 
 # Go
 
