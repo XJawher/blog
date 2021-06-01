@@ -52,3 +52,96 @@ http 缓存：我们在设置一个文件的缓存策略的时候，一般是这
 在渲染的过程中，我们的浏览器会把获取的 dom object tree 和 css object tree 结合起来，然后就得到一颗渲染树。然后从渲染树的根节点开始调用，这样就得到一个
 
 ### css
+
+Css 会在渲染的时候阻塞代码，所以要尽量早的将 css 加载出来这里就需要的是将 css 位置放在 head 标签里，或者使用 cdn，一般在大型项目中，使用 cdn 加载静态资源是一种规定。
+
+在 css 中做性能优化有如下的几个点：
+
+1. 尽量不要用 通配符。
+2. 标签选择尽量不要嵌套很深。
+3. 由于 css 是从右往左加载的，因此在使用的时候，能用类或者 id 的就不用标签选择器。
+
+### js
+
+我们的 js 执行模式三种，
+
+- 一种是普通模式，js 会阻塞浏览器，直到 script 执行完才会继续执行下面的代码
+- async 执行不会阻塞浏览器。加载是异步的，当加载结束的时候，就会立即执行 script 代码
+- defer 模式。执行是异步的，不会阻塞浏览器运行。当 contentLOaded 以后才会去执行 script 代码
+
+#### 防抖和节流
+
+在 js 中有两个很重要的优化手段就是防抖和节流，这俩都是闭包的形式出现的。
+
+**防抖**： 在指定时间就执行第一次的。
+**节流**：在指定时间里执行最后一次。
+
+```js
+// 在指定的时间内，函数只能被触发一次
+function throttle(fn, interval) {
+  // 这个函数的核心思想是在 interval 的时间里，执行第一次进来的函数
+  let last = 0;
+  let timer = null;
+
+  return function () {
+    const context = this;
+
+    const args = arguments;
+
+    const now = +new Date(); // 这一步是将日期转成 number
+
+    if (now > last + interval) {
+      // 这里是两种情况
+      // 1 第一次进来，那么因为 last 是 0；interval + last 必然是比 now 小的
+      // 2 不是第一次进来，而是一直在输入，last 的值 + interval 已经是大于当前的 now
+      last = now;
+      fn.apply(context, args);
+    } else {
+      clearTimeout(timer);
+
+      timer = setTimeout(() => {
+        // 这里比较重要，需要在每次函数执行到这里 的时候，改变 last 时间。
+        // 这里不一定执行，但是这里会改变时间戳。
+        last = now;
+        fn.apply(context, args);
+      }, interval);
+    }
+  };
+}
+
+// 防抖函数，在规定的时间内，函数被触发一次，当一直被触发的时候，前面的时间就要被清空。直到停止触发一段时间才执行。
+function debounce(fn, delay) {
+  let timer = null;
+
+  return function (args) {
+    const context = this;
+    clearTimeout(timer);
+    // 这里call 和 apply 相比，传输的是单个参数，apply 是类数组，所以可能 call 性能好的原因是少了一次解析。
+    timer = setTimeout(() => {
+      fn.call(context, args);
+    }, delay);
+  };
+
+  return function () {
+    const context = this;
+    const args = arguments;
+    clearTimeout(timer);
+
+    timer = setTimeout(() => {
+      fn.apply(context, args);
+    }, delay);
+  };
+}
+
+const testDiv = document.getElementById("testDiv");
+
+function ajax(params) {
+  console.log(`this is ajax: ${params}，times: ${new Date().toLocaleString()}`);
+}
+
+let throttleAjax = throttleFunction(ajax, 1000);
+
+testDiv.addEventListener("keyup", function (e) {
+  throttleAjax(e.target.value);
+});
+```

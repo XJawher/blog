@@ -7,14 +7,29 @@
     <title>canvas</title>
   </head>
   <body>
-    <canvas
+    <div
       id="canvas"
       style="border: 1px solid #aaaaaa; display: block; margin: 50px auto"
       width="800"
       height="600"
     >
       你的浏览器居然不支持Canvas？！赶快换一个吧！！
-    </canvas>
+    </div>
+
+    <div style="display: flex;">
+      <span  id="span1">正常输入</span>
+      <input id="normal"></input>
+    </div>
+
+    <div style="display: flex;">
+      <span>防抖输入 debounce</span>
+      <input id="debounce"></input>
+    </div>
+
+    <div style="display: flex;">
+      <span>节流输入</span>
+      <input id="throttle"></input>
+    </div>
     <script src="./Canvas.js"></script>
   </body>
 </html>
