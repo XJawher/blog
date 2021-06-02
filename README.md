@@ -79,6 +79,8 @@
 
 [性能优化](./Frontend/PerformanceOptimization.md)
 
+[继承](./Frontend/Extends.md)
+
 # NodeJS
 
 [NodeJS](./Server/NodeJS/Node.md)

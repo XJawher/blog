@@ -224,4 +224,33 @@ React Hook 的设计目的是，组件就是一个纯函数，**如果需要外�
 hook 不怎么擅长处理异步的问题，当有大量的异步操作的时候， class 或许是一个比较好的选择。
 依赖的问题，在 hook 中依赖是一个比较大的问题，当我们的依赖发生了变化的时候，hook 就会被更新，当依赖所依赖的对象变化的时候，hook 也可能会被更新，所以这个链条是比较麻烦的，可能会出现 hook 发生了变化，但是不是当前 hook 依赖变化了，而是依赖的依赖变化了，这个链条上不容易控制。
 
+闭包内存泄漏的问题，因为 hook 是基于闭包实现的，过时闭包导致的内存的频繁 GC。
+公式代码多，和 redux 一样，各种 useCallback useMemo
+函数式的代码和 class 的相比，class 的心智负担会低一些。
+
 hook 的展望：react 官方在 12 月的时候提出了一个 server components 提案运行在服务端的 react 组件。函数组件，写了以后可以在客户端使用也可以在服务端使用，当然这个功能使用的前提是 concurrent mode 使用变的稳定，
+
+useState 源码
+
+- 传入一个需要设置的 值
+- 1 判断是不是存在旧的 state ，通过实例化好的 wipFiber。
+- 2 设置一个变量 const hook {}，里面有两个 key 一个是 state ,一个是 queue
+- state 根据是不是存在旧的 state 判断，如果存在 oldState ，那么就将 oldState 中的
+- state 赋值给 hook.state ，如果不存在 oldState 那么就直接把传入的值赋值给 hook.state
+- 3 赋值 action ，判断是不是存在 oldState 存在的话，那么就直接将 oldState 中的 queue 赋值给 action
+- 如果不存在，那么就赋值 action = 【】 空数组。然后 forEach 循环 actions
+- 循环中执行 action 函数，传入的参数是 hook.state 返回的值作为 hook.state 新的值
+- 4 设置函数 setState，接收一个 action 作为参数，这个 action 就是我们传入的函数。 设置 wipRoot 对象的三个 key 的值、这里设置完成以后，下次进来，就会用设置好的值。
+- 5 将 hookIndex 标记 + 1 最后返回 [hook.state,setState]
+
+### useContext 用法
+
+useContext 组件之间共享状态使用方法有三步
+
+- 1 用 C = createContext(initValue) 创建上下文
+- 2 用 1 创建的上下文圈定作用域 <C.provider > xxxx </C.provider>
+- 3 在作用域里使用 useContext(C) 来使用上下文
+
+### useEffect 和 useLayoutEffect
+
+useEffect 在渲染完成以后执行，useLayoutEffect 是在渲染完成之前执行
