@@ -20,3 +20,26 @@ Child.prototype.constructor = Child;
 ```
 
 es6 中的继承是采用的 class extends 然后在子类中去调用 super()
+看下下面的例子
+
+```js
+class A {
+  constructor() {
+    new.target.name;
+  }
+
+  nameA() {
+    console.log("name from class A");
+  }
+}
+
+class B extends A {
+  constructor() {
+    super();
+    super.nameA(); // name from class A
+  }
+}
+
+new A(); // A
+new B(); // B
+```
