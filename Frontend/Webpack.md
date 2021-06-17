@@ -33,3 +33,28 @@ HMR 的核心就是客户端从服务端去拉更新后的文件，准确的说�
 为了利用多核 CPU 的计算能力，HTML5 提出 Web Worker 标准，允许 JavaScript 脚本创建多个线程，但是子线程完全受主线程控制，且不得操作 DOM。所以，这个新标准并没有改变 JavaScript 单线程的本质。HappyPack 就是利用了这个特性，可以加速打包的过程。
 
 ## 手动编写 loader
+
+## 不同的路由下相同的资源
+
+有这样的场景，在不同的路由下，有两个相同的资源，这时候怎么打包，会将这俩资源打包成一个，而不是打包成两份。
+这时候需要使用 splitChunks 分割代码，将公共部分抽取出来。在 optimization 中配置
+简单来说就是下面的这部分
+
+```js
+module.exports = {
+  entry: {
+    index: "./src/index.js",
+    album: "./src/album.js",
+  },
+  output: {
+    filename: "[name].bundle.js", // [name] 是入口名称
+  },
+  optimization: {
+    splitChunks: {
+      // 自动提取所有公共模块到单独 bundle
+      chunks: "all",
+    },
+  },
+  // ... 其他配置
+};
+```
