@@ -66,3 +66,35 @@ const hasClicked = div.dispatchEvent(event);
 
 // 上面的代码如果触发了那么 hasClicked 就是 true；
 ```
+
+## 浏览器事件模型
+
+### 1 HTML-on 属性
+
+HTML 语言是允许在元素的某些属性中，直接定义某些事件的监听代码例如
+
+```html
+<div id="test" onclick="console.log('this is on click')"></div>
+<!-- 这个方式的执行阶段是在 冒泡阶段执行。要注意传入函数的时候，需要加圆括号，函数要执行才行。 -->
+上面的这个效果和下面的这个是一样的 const test = document.getElementById('test')
+test.setAttribute('onclick','someFunction()')
+```
+
+### 2 元素节点的事件属性
+
+```js
+test.onclick = funcion(event) {
+    console.log('clicked!!!')
+}
+// 这个函数也是在冒泡阶段会被触发。和上面的 on- 不一样的是，这个的是传入函数名，不用加圆括号直接执行。
+```
+
+### 3 addEventListener()
+
+所有的 dom 节点实例都有 addEventListener 的方法，这个方法也是我们推荐的监听方法
+
+### 小结
+
+上面的三种方法是都可以用来监听事件的，第一种 HTML 的 on 属性，违反了 HTML 和 js 相分离的原则，将两者写在一起，不利于代码的分工，因此是不推荐使用的。
+元素节点的事件属性的缺点在于，同一个事件只能定义一个监听函数，如果定义两次的话，后面的函数会把前面的函数覆盖了，这个也不推荐使用，而且只能监听冒泡阶段。
+addEventListener 是我们推荐的监听方式，它可以做到一个事件被多个函数监听，能够指定监听的阶段，是冒泡还是捕获阶段。很灵活。他的三个参数赋予了这个函数更多的可能性。
