@@ -34,10 +34,52 @@ HMR 的核心就是客户端从服务端去拉更新后的文件，准确的说�
 
 ## 手动编写 loader
 
+## 代码切分
+
+在 webpack 中有个很重要的功能是基于路由的代码拆分，
+
+```js
+// react 中
+import React, { Suspense, lazy } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
+const Home = lazy(() => import("./routes/Home"));
+const About = lazy(() => import("./routes/About"));
+
+const App = () => (
+  <Router>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route path="/about" component={About} />
+      </Switch>
+    </Suspense>
+  </Router>
+);
+
+// webpack 中
+
+module.exports = {
+  entry: {
+    main: "./src/app.js",
+  },
+  output: {
+    // `filename` provides a template for naming your bundles (remember to use `[name]`)
+    filename: "[name].bundle.js",
+    // `chunkFilename` provides a template for naming code-split bundles (optional)
+    chunkFilename: "[name].bundle.js",
+    // `path` is the folder where Webpack will place your bundles
+    path: "./dist",
+    // `publicPath` is where Webpack will load your bundles from (optional)
+    publicPath: "dist/",
+  },
+};
+```
+
 ## 不同的路由下相同的资源
 
 有这样的场景，在不同的路由下，有两个相同的资源，这时候怎么打包，会将这俩资源打包成一个，而不是打包成两份。
-这时候需要使用 splitChunks 分割代码，将公共部分抽取出来。在 optimization 中配置
+这时候需要使用 splitChunks 分割代码，将公共部分抽取出来。在 optimization 中配置\*\*\*\*
 简单来说就是下面的这部分
 
 ```js
