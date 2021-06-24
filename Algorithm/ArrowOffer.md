@@ -50,3 +50,87 @@ function swap(arr, i, j) {
 
 findIndexFromArray(data);
 ```
+
+## 第一个只出现一次的字符位置
+
+在一个字符串中找到第一个只出现一次的字符。
+
+```js
+// 第一种方案，利用 weak Map 做哈希，然后循环找到 值是1 的第一个就可以
+
+function findCharactor(str) {
+  // 这里不能使用 weak map ，因为 weak map 只接受对象引用做为 key ，
+  const charMap = new Map();
+  for (let i = 0; i < str.length; i++) {
+    if (charMap.has(str.charAt(i))) {
+      charMap.set(str.charAt(i), false);
+    } else {
+      charMap.set(str.charAt(i), true);
+    }
+  }
+
+  for (const [key, value] of charMap.entries()) {
+    if (value) {
+      return key;
+    }
+  }
+
+  return -1;
+}
+```
+
+## 二维数组中的查找
+
+给定一个二维数组，每一行是从左到右递增，每一列是从上到下递增，现在给定一个数，判断在不在这个二维数组中。
+
+**思路：** 一个二维数组，从左到右递增，从上到下也是递增，说明这个二维数组的较大值是在最右边，最大值是最后的那个值。现在给了一个值，那么就从第一行的最右边做对比，如果是大，那么从第二行开始，以此类推，当找到行数以后，再从这一样开始做对比，也是从右开始，一个一个的往左对比，直到找到那个值为止，如果找不到，说明就没有这个值，返回 -1
+
+```js
+/**
+ * @description
+ * @author lipc
+ * @date 24/06/2021
+ * @param {*} arr
+ * @param {*} target
+ * @return {*} 思路：二维数组的值左边的小，右边的大，在查找的时候，先和第一行的最后一个值比较，
+ * 看大小情况，如果大于这个值，那么就往第二行的最后一个值比较，他如果小于第二行的最后一个值，说明这个
+ * 目标值可能在第二行的左边，或者是第三行左侧，然后对比第二行倒数第二个值，如果这个值还是大于目标值
+ * 继续比较第三个值，如果第三个值小于目标值，说明是在第三行的第三要继续找，因为这个二维数组的行和列
+ * 都是递增的。
+[
+  [1,   4,  7, 11, 15],
+  [2,   5,  8, 12, 19],
+  [3,   6,  9, 16, 22],
+  [10, 13, 14, 17, 24],
+  [18, 21, 23, 26, 30]
+]
+ */
+function findTargetNumber(arr, target) {
+  // 首先判断 arr 的状态，是不是符合一个二维数组
+  if (!arr || !arr.length || arr[0].lenght) {
+    return -1;
+  }
+
+  // 这里就是确定这个是二维数组，满足我们的要求的。
+  // 按照一个从左到右依次递增的状态，那么首先我们要做的是找到总共有多少行，
+  const row = arr.length;
+  const col = arr[0].length;
+
+  let indexRow = 0;
+  let indexCol = col - 1;
+
+  while (indexRow < row - 1 && indexCol >= 0) {
+    if (arr[indexRow][indexCol] === target) {
+      return true;
+    } else if (arr[indexRow][indexCol] < target) {
+      indexRow++;
+    } else {
+      indexCol--;
+    }
+  }
+
+  console.log({ indexRow, indexCol });
+
+  return false;
+}
+```
