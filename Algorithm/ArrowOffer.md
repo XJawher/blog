@@ -180,3 +180,58 @@ f(0) = 0; f(1) = 1; f(2) = 1;f(n) = f(n-1) + f(n-2) n>=2
     return recursionBetter(n-1,ac2,ac1+ac2)
   }
 ```
+## 跳台阶
+一个楼梯有 n 阶，现在能一步两步上去，那么总共有多少种方法可以上去
+这是一个动态规划的问题，这个问题的核心思想是  f(n) = f(n-1) + f(n-2) 和上面提到的 斐波那契 一样，可以用递归解决，我们这里采用另外的一种方案。
+
+```js
+function jump2 (n,step1 = 2,step2 = 1) {
+  if(n <=2) return step2;
+  return jump2(n-1,step1,step1+step2)
+}
+
+function jump3(n){
+  if(n === 1) return 1;
+  if(n === 2) return 2;
+  return jump3(n-1) + jump3(n-2);
+}
+
+function jump4(n) {
+  if(n <= 2) return n;
+  let step1 = 1;
+  let step2 = 2;
+  let res = 0;
+  for(let i =2;i<n;i++){
+    res = step1 + step2;
+    // 这一步的理解要这样，上面的执行完以后，这时候 res = 1 + 2 = 3，那么就要用 res 的值作为新的 step2 的值，那么以前的 setp2 的值变成 step1 的值
+    // 这样的话，就成了一个循环
+    step1 = step2;
+    step2 = res;
+  }
+  return res;
+}
+```
+## 跳楼梯 变态版
+描述：既可以一次跳一格，也可以一次跳N个，那么最多是多少种方法
+```js
+// 用动态规划做
+function jump5(n) {
+
+  const arr = new Array(n).fill(1);
+
+
+  for(let i = 1; i < n; i++) {
+
+    for(let j = 0; j < i; j++) {
+      arr[i] += arr[j]
+    }
+  }
+  return arr[n-1]
+}
+
+
+function jump6(n) {
+  return Math.pow(2,n-1)
+}
+
+```
