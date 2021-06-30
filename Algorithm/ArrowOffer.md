@@ -318,3 +318,35 @@ function findMaxLengthSubString (str = '') {
 
 ## 丑数
 我们把可以分解成 1 2 3 5 相乘的数字称之为丑数，比如 2 * 1 = 2 ，2 * 2 = 4 ，2 * 3 = 6 等，求解，当 n 的时候，对应的丑数是多少
+
+```js
+function uglyNumber(num) {
+
+    // 当小于等于 6 的时候，输入的值就是返回的值。
+    if (num <= 6) {
+        return num;
+    }
+
+    const dp = [1];
+    let i2 = 0, i3 = 0, i5 = 0, nextUglyIndex = 1;
+
+    while (nextUglyIndex < num) {
+        const min = Math.min(dp[i2] * 2, Math.min(dp[i3] * 3, dp[i5] * 5));
+        dp[nextUglyIndex] = min;
+
+        if (dp[i2] * 2 === min) {
+            i2++;
+        }
+        if (dp[i3] * 3 === min) {
+            i3++;
+        }
+        if (dp[i5] * 5 === min) {
+            i5++;
+        }
+
+        nextUglyIndex++;
+    }
+
+    return dp;
+}
+```
