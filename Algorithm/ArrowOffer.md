@@ -92,7 +92,7 @@ function findCharactor(str) {
  * @date 24/06/2021
  * @param {*} arr
  * @param {*} target
- * @return {*} 思路：二维数组的值左边的小，右边的大，在查找的时候，先和第一行的最后一个值比较，
+ * @return {*} 思路：二维数组的左边的小，右边的大，在查找的时候，先和第一行的最后一个值比较，
  * 看大小情况，如果大于这个值，那么就往第二行的最后一个值比较，他如果小于第二行的最后一个值，说明这个
  * 目标值可能在第二行的左边，或者是第三行左侧，然后对比第二行倒数第二个值，如果这个值还是大于目标值
  * 继续比较第三个值，如果第三个值小于目标值，说明是在第三行的第三要继续找，因为这个二维数组的行和列
@@ -184,7 +184,7 @@ f(0) = 0; f(1) = 1; f(2) = 1;f(n) = f(n-1) + f(n-2) n>=2
 一个楼梯有 n 阶，现在能一步两步上去，那么总共有多少种方法可以上去
 这是一个动态规划的问题，这个问题的核心思想是  f(n) = f(n-1) + f(n-2) 和上面提到的 斐波那契 一样，可以用递归解决，我们这里采用另外的一种方案。
 
-```js
+```
 function jump2 (n,step1 = 2,step2 = 1) {
   if(n <=2) return step2;
   return jump2(n-1,step1,step1+step2)
@@ -235,3 +235,86 @@ function jump6(n) {
 }
 
 ```
+## 连续子数组的最大和
+{6, -3, -2, 7, -15, 1, 2, 2}，连续子数组的最大和为多少，并输出这个连续的子数。这里的连续很重要，指的是从零开始，一直加和， 0 + 1 ？ 0 + 1 + 2 ？ 0 + 1 + 2 + 3 ？就这样一直加和到全部都没有值为止。
+
+```js
+function findMaxSumSubArray(arr){
+  if(!arr || !arr.length) return 0;
+  // 按照上面的说法，这样的话，我们就需要有这样的一个变量去存储，每次累加的值
+  const dp = [arr[0]];
+
+  for(let i = 1; i < arr.length; i++) {
+      dp[i] = dp[i-1] + arr[i]
+  }
+  return dp;
+}
+
+function findMaxSumSubArray2 (arr) {
+  if(!arr || !arr.length) return 0;
+
+  let tempMax = 0;
+  let realMax = 0;
+
+  for (let i = 0;i < arr.length; i++) {
+    // f n = f n-1 + f n-2
+     tempMax = tempMax + arr[i];
+
+     if(tempMax > realMax) {
+        realMax =  tempMax
+     }else if(tempMax < 0){
+       tempMax = 0;
+     }
+  }
+
+  return realMax;
+}
+
+```
+## 字符串中连续重复的字符
+abbcccddddd -> 字符中连续重复的字符，如：ddddd
+
+这个算法是找到连续重复的字符，那么就要求是在循环的时候，出现 i 元素和已经暂存的最长的不一致的时候，将i做调换
+
+```js
+function findRepeatString (str = '') {
+  let temp = '';
+  let max = '';
+  for (let i = 0; i < str.length; i++) {
+    // 将字符进行拼接，这时候的 temp 可能是我们要的值
+      if(temp.endsWith(str.charAt(i)) ) {
+        temp = temp + str.charAt(i);
+        if(max.length < temp.length) {
+          max = temp;
+        }
+      }else {
+        temp =  str.charAt(i);
+      }
+  }
+
+  return max;
+}
+```
+## 字符串中最长的不重复的子串
+比如有个字符串 'acvbdcvvcxxs' 那么这时候最长的不重复的子串就是 acvb
+
+```js
+function findMaxLengthSubString (str = '') {
+  let max = '';
+  let temp = '';
+  for (let i = 0; i < str.length; i++){
+    if(!temp.includes(str.charAt(i))) {
+      temp = temp + str.charAt(i);
+      if(temp.length > max.length) {
+        max = temp;
+      }
+    }else {
+      temp = str.charAt(i);
+    }
+  }
+  return max;
+}
+```
+
+## 丑数
+我们把可以分解成 1 2 3 5 相乘的数字称之为丑数，比如 2 * 1 = 2 ，2 * 2 = 4 ，2 * 3 = 6 等，求解，当 n 的时候，对应的丑数是多少
