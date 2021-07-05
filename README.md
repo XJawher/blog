@@ -49,6 +49,8 @@
 
 # 前端
 
+[实现一个比 setTimeout 更快的 timeout ](./Frontend/FasterTimeout.md)
+
 [This? yes this!!!](./Frontend/This.md)
 
 [DOMEvent dom 事件模型](./Frontend/DOMEvent.md)
