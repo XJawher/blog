@@ -350,3 +350,60 @@ function uglyNumber(num) {
     return dp;
 }
 ```
+## 实现一个 MemoryCache 字节跳动
+
+MemoryCache 实现存储数据，清除数据，当数据满了以后自动清除数据。
+
+```js
+// 字节的面试中，没有提及是要用 使用次数去作为权重，删除数据，我这里想了一下，没有比使用次数作为权重更好的方案了。
+// 使用次数多，就意味着优先级高，没有使用的就可以自动去删除。
+class MemoryCache {
+  constructor (max = 10) {
+    this.data = new Map();
+    this.usedCount = new Map();
+    this.max = max;
+  }
+
+  set(key,value){
+    const keyUseCount = this.usedCount.get(key)
+    const size = this.usedCount.size;
+    if(!keyUseCount) {
+      this.usedCount.set(key,0)
+    }
+
+    if(size === 10) {
+      // 删除使用次数低的
+      let initValue = 0;
+      const valueList = [];
+      for (const [key,value] of this.usedCount.entries()) {
+          valueList.push(value);
+      }
+     const useLess =  valueList.sort()[0];
+       for (const [key,value] of this.usedCount.entries()) {
+          if(value === useLess) {
+            this.clearByKey(key);
+          }
+      }
+    }else {
+      this.data.set(key,value)
+    }
+  }
+
+  get(key){
+    let keyUseCount = this.usedCount.get(key)
+    this.usedCount.set(key, keyUseCount++)
+    return this.data.get(key)
+  }
+
+  clearByKey(key){
+    this.data.delete(key)
+    this.usedCount.delete(key)
+
+  }
+
+  clearAll (){
+    this.data.clear();
+    this.usedCount.clear()
+  }
+}
+```
