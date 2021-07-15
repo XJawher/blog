@@ -93,6 +93,8 @@
 
 [for in 和 for of](./Frontend/ObjectLoop.md)
 
+[promise 相关](./Frontend/Promise.md)
+
 # NodeJS
 
 [NodeJS](./Server/NodeJS/Node.md)
