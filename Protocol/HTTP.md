@@ -53,6 +53,14 @@ location /api {
 
 CORS 比 JSONP 强大的地方在于可以支持更多的请求方法，而不是只有一个 GET
 
+CORS 在进行复杂请求的时候，会出现两次请求，基本的比如 post 请求，当设置 content-type: applycation/json 的时候，就会出现两次请求，一次是预请求也就是 options，一次是正常的请求。发生这个的原因是这样的：
+
+[cors 跨域](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CORS)
+#### 简单请求
+不会触发 CORS 预检查，需要满足一些条件，比如说 get,head,post（特殊请求）,他们仨的 content-type 要求是 text、multipart/form-data  application/x-www-form-urlencoded，还有一些其他的，这里不做记录了。
+#### 预检请求
+预检请求需要先使用 OPTIONS 方法发起一个预检请求到服务器，以获知服务器是不是允许该实际请求，预检请求的使用，可以避免跨域请求对服务器的用户数据发生未预期的影响。
+
 ### window.name
 
 window.name 在不同的页面甚至不同的域名加载以后依旧是存在的，并且可以支持非常长的 name 字符串。

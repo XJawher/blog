@@ -95,6 +95,8 @@
 
 [promise 相关](./Frontend/Promise.md)
 
+[css 父级选择器](./Frontend/CSSParentSelector.md)
+
 # NodeJS
 
 [NodeJS](./Server/NodeJS/Node.md)
