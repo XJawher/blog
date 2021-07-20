@@ -1,5 +1,9 @@
 **progress, continuous progress**
 
+# 项目的一些理解
+
+[关于敏捷开发模式](./Project/AgileMode.md)
+
 # 计算机基础
 
 [计算机基础](./Basics/Basics.md)
